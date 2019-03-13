@@ -3,7 +3,11 @@ import React, { Component } from 'react';
 class LoginBox extends Component {
     constructor(props){
         super(props);
-        this.state = {  };
+        this.state = { 
+            username: "",
+            password: "",
+            errors: []
+         };
     }
 
     submitLogin(e){
