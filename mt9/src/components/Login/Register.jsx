@@ -4,45 +4,54 @@ import axios from 'axios';
 class RegisterBox extends Component {
     constructor(props){
         super(props);
-        this.state = { 
-            
-         };
+        this.state = {
+            creds: { 
+                username: '',
+                password: '',
+            }
+        };
          
     }
 
 
+    change = e => {
+        this.setState({
+          creds: {
+            ...this.state.creds,
+            [e.target.name]: e.target.value
+          }
+        })
+      }
+
+
 
     
-    onUsernameChange = (e) => {
-        this.setState({ username: e.target.value });
-    }
+    // onUsernameChange = (e) => {
+    //     this.setState({ username: e.target.value });
+    // }
 
-    onPasswordChange = (e) => {
-        this.setState({ password: e.target.value });
-    }
+    // onPasswordChange = (e) => {
+    //     this.setState({ password: e.target.value });
+    // }
 
     submitRegister = (e) => {
-        axios.post('https://top9backend.herokuapp.com/api/register', {
-            username: this.state.username,
-            password: this.state.password
-          })
+        e.preventDefault();
+        axios.post('https://top9backend.herokuapp.com/api/register', this.state.creds)
           .then(res => {
             console.log(res);
-            this.setState({ 
-                username: res.data.username, 
-                password: res.data.password 
-            });
+
           })
           .catch(err => {
             console.log(err);
-            this.setState({ error: err });
+            
           });
           
-          e.preventDefault();
+          
     }
     
     render() { 
         console.log(localStorage.getItem('token'));
+        console.log(this.state.creds);
 
         return(
             
@@ -52,12 +61,12 @@ class RegisterBox extends Component {
                 <div className="box">
                     <div className="input">
                         <label htmlFor="username">Username</label>
-                        <input type="text" name="username" className="login-input" placeholder="Username" onChange={this.onUsernameChange}/>
+                        <input type="text" name="username" className="login-input" placeholder="Username" value={this.state.creds.username} onChange={this.change}/>
 
                     </div>
                     <div className="input">
                         <label htmlFor="password">Password</label>
-                        <input type="password" name="password" className="login-input" placeholder="Password" onChange={this.onPasswordChange}/>
+                        <input type="password" name="password" className="login-input" placeholder="Password" value={this.state.creds.password} onChange={this.change}/>
 
                     </div>
                     <button type="button" className="login-button" onClick={this.submitRegister}>Submit</button>

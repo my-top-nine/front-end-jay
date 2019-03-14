@@ -5,7 +5,20 @@ import RegisterBox from './Register';
 class LoginPage extends Component {
     constructor (props) {
         super(props)
-
+        this.state = {
+            user: {
+              username: '',
+              password: '',
+              isLoggedIn: false,
+              loginErr: false,
+              userId: null
+            },
+            newUser: {
+              username: '',
+              password: ''
+            },
+            userTopNine: []
+          }
     }
 
 

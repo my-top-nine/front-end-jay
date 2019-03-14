@@ -5,6 +5,8 @@ import LoginBox from './components/Login/Login';
 import RegisterBox from './components/Login/Register';
 import LoginPage from './components/Login/LoginPage';
 import LoggedIn from './components/Login/LoggedIn';
+import UserItems from './components/User/UserItems';
+import Protected from './components/Protected'
 import axios from 'axios';
 import { Link, Route, BrowserRouter as Router  } from 'react-router-dom';
 
@@ -33,11 +35,15 @@ class App extends Component {
       isLoginOpen: false
     })
   }
+
+
+
   
   
 
   componentDidMount(){
     console.log('cdm running');
+
 
    axios
        .get('https://my-top-nine.herokuapp.com/api/categories' )
@@ -73,6 +79,10 @@ class App extends Component {
             {/* <Route path="/auth" component={LoggedIn}/> */}
             <Route path="/top9" render={props => <ItemList {...props}
             ItemList={this.ItemList}/>} />
+            <LoggedIn>
+              <Route path="/Protected" component={Protected}/>
+            </LoggedIn>
+            
             <Route exact path='/' render= {props => <LoginPage {...props}
             showRegisterBox={this.showRegisterBox} 
             showLoginBox={this.showLoginBox} 
