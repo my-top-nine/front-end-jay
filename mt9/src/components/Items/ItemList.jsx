@@ -1,29 +1,37 @@
 import React from 'react';
+import Items from './Items';
 
 
-class ItemList extends React.Component {
-    constructor (props){
-        super(props)
-        this.state = {  }
-    }
-    
-    render() { 
-        return (
-            <div>
-                
-                    {this.props.name.map(n => {
-                        return <div key={n.id}>
-                         <h1> {n.name} </h1>
-                         <h3>: {n.age} </h3>
-                         <h3>Email: {n.email}</h3> 
-                        
-                        </div>
-                    })}
-                
-            </div>
-        )
 
-    }
+function ItemList (props) {
+    return (
+        <div>
+            <Items name={props.name} />
+        </div>
+    )
 }
- 
+
 export default ItemList;
+
+// class ItemList extends React.Component {
+//     constructor (props){
+//         super(props)
+//         this.state = { 
+//             // name: ['item1', 'item2'],
+//             // items: [],
+//             // error: ''
+//          }
+//     }
+    
+//     render() { 
+//         return (
+//             <div>
+
+//                 <Items name={this.props.name} key={this.state} addItem={this.addItem} />
+
+//             </div>
+//         )
+
+//     }
+// }
+ 
