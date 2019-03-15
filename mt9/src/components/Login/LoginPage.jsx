@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import LoginBox from './Login';
 import RegisterBox from './Register';
+import 'bootstrap/dist/css/bootstrap.css';
+import { 
+    Button,
+    ButtonGroup
+ } from 'reactstrap';
 
 class LoginPage extends Component {
     constructor (props) {
@@ -26,9 +31,11 @@ class LoginPage extends Component {
         return ( 
             <div className="App">
             <div>
-              <div className="box-controller">
-                <button className="controller" onClick={this.props.showLoginBox}>Login</button>
-                <button className="controller" onClick={this.props.showRegisterBox}>Register</button>
+              <div className="box-controller" style={{marginTop:'15%'}}>
+                <ButtonGroup>
+                  <Button className="controller" onClick={this.props.showLoginBox}>Login</Button>
+                  <Button className="controller" onClick={this.props.showRegisterBox}>Register</Button>
+                </ButtonGroup>
               </div>
               <div className="box-container">
               {console.log(this.props)}

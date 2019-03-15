@@ -8,7 +8,10 @@ class LoggedIn extends Component {
     constructor(props) {
         super(props)
         this.state = { 
-            user: undefined
+            creds: { 
+                username: '',
+                password: '',
+            }
          }
     }
 
@@ -20,11 +23,11 @@ class LoggedIn extends Component {
             .get(`https://top9backend.herokuapp.com/api/users`)
             .then(res => {
             console.log(res);
-            this.setState({ user: res.data });
+            this.setState({ creds: res.data });
             })
             .catch(err => {
             console.log(err);
-            this.setState({ error: err });
+           
             });
 
         const jwt = getJwt();
@@ -32,19 +35,21 @@ class LoggedIn extends Component {
             this.props.history.push('/')
         } 
         axios.get( `https://my-top-nine.herokuapp.com/api/users` , { headers: {Authorization: `Bearer ${jwt}`}})
-            .then(res => res.setState({
-                user: res.data
+            .then(res => this.setState({
+                creds: res.data
+                
             }))
             .catch(err => {
                 localStorage.removeItem('token');
-                this.props.history.push('/');
+                this.props.history.push('/Protected');
             })
     }
 
 
     
     render() { 
-        if(this.state.user === undefined) {
+        console.log(this.state.creds);
+        if(this.state.creds.username === '') {
             return (
                 <div>Loading...</div>
             )

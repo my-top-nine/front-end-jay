@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.css';
+import { 
+  Button,
+  FormGroup,
+  Form,
+  Label,
+  Input
+} from 'reactstrap';
 
 class RegisterBox extends Component {
     constructor(props){
@@ -8,7 +16,18 @@ class RegisterBox extends Component {
             creds: { 
                 username: '',
                 password: '',
-            }
+            },
+            style: {
+                
+              width: '100%'
+          },
+          center: {
+              justifyContent: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+
+          }
         };
          
     }
@@ -39,7 +58,7 @@ class RegisterBox extends Component {
         axios.post('https://top9backend.herokuapp.com/api/register', this.state.creds)
           .then(res => {
             console.log(res);
-
+            let userId = localStorage.setItem('user_id', res.data.id);
           })
           .catch(err => {
             console.log(err);
@@ -59,17 +78,24 @@ class RegisterBox extends Component {
                 <div className="controller">Register</div>
                 
                 <div className="box">
+                <Form style={this.state.center}>
+                        <FormGroup style={this.state.center}>
+
+                            <Label htmlFor="username">Username</Label>
+                            
+                            <Input style={this.state.style} type="text" name="username" className="login-input"  placeholder="Username" value={this.state.creds.username} onChange={this.change}/>
+                            
+                        </FormGroup>
+                        <FormGroup style={this.state.center}>
+                            <Label htmlFor="password">Password</Label>
+                            <Input style={this.state.style} type="password" name="password" className="login-input"  placeholder="Password" value={this.state.creds.password} onChange={this.change}/>
+                        </FormGroup>
+                    </Form>
+
                     <div className="input">
-                        <label htmlFor="username">Username</label>
-                        <input type="text" name="username" className="login-input" placeholder="Username" value={this.state.creds.username} onChange={this.change}/>
 
                     </div>
-                    <div className="input">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" name="password" className="login-input" placeholder="Password" value={this.state.creds.password} onChange={this.change}/>
-
-                    </div>
-                    <button type="button" className="login-button" onClick={this.submitRegister}>Submit</button>
+                    <Button outline color="primary" type="button"  onClick={this.submitLogin}>Submit</Button>{' '}
                 </div>
             </div>
         )
