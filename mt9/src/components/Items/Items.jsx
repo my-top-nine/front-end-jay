@@ -1,5 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.css';
+import { 
+    Card,
+    CardTitle
+ } from 'reactstrap';
 
 class Items extends React.Component {
     constructor(props){
@@ -30,8 +35,17 @@ class Items extends React.Component {
     render() { 
         console.log(this.state.items)
         return ( 
-            <div>
-                <p>{this.state.items.map(i => <div> {i.name} </div>)}</p>
+            <div style={{ display:'flex', justifyContent: 'center', justifyContent: 'space-between', flexWrap: 'wrap'}}>
+                {this.state.items.map(i =>  {
+                    return (
+                        
+                        <Card style={{width: '75%'}} body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
+                            <CardTitle >{i.name}</CardTitle>
+                        </Card>
+                        
+                        
+                    )
+                } )}
             </div>
          );
     }
