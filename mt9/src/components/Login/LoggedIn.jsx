@@ -19,43 +19,44 @@ class LoggedIn extends Component {
     componentDidMount() {
 
             
-        axios
-            .get(`https://top9backend.herokuapp.com/api/users`)
-            .then(res => {
-            console.log(res);
-            this.setState({ creds: res.data });
-            })
-            .catch(err => {
-            console.log(err);
+        // axios
+        //     .get(`https://top9backend.herokuapp.com/api/users`)
+        //     .then(res => {
+        //     console.log(res);
+        //     this.setState({ creds: res.data });
+        //     })
+        //     .catch(err => {
+        //     console.log(err);
            
-            });
+        //     });
 
-        const jwt = getJwt();
-        if(!jwt) {
-            this.props.history.push('/')
-        } 
-        axios.get( `https://my-top-nine.herokuapp.com/api/users` , { headers: {Authorization: `Bearer ${jwt}`}})
-            .then(res => this.setState({
-                creds: res.data
+        // const jwt = getJwt();
+        // if(!jwt) {
+        //     this.props.history.push('/')
+        // } 
+        // axios.get( `https://my-top-nine.herokuapp.com/api/users` , { headers: {Authorization: `Bearer ${jwt}`}})
+        //     .then(res => this.setState({
+        //         creds: res.data
                 
-            }))
-            .catch(err => {
-                localStorage.removeItem('token');
-                this.props.history.push('/Protected');
-            })
+        //     }))
+        //     .catch(err => {
+        //         localStorage.removeItem('token');
+        //         this.props.history.push('/Protected');
+        //     })
     }
 
 
     
     render() { 
         console.log(this.state.creds);
-        if(this.state.creds.username === '') {
-            return (
-                <div>Loading...</div>
-            )
-        }
+        console.log(this.props.userId);
+        // if(this.state.creds.username === '') {
+        //     return (
+        //         <div></div>
+        //     )
+        // }
         return ( 
-            <div><UserItems /></div>
+            <div><UserItems userId={this.props.userId}/></div>
          );
     }
 }

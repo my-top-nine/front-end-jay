@@ -8,6 +8,8 @@ import {
     Label,
     Input
  } from 'reactstrap';
+ import * as JWT from 'jwt-decode';
+ 
 
 import axios from 'axios';
 
@@ -63,9 +65,21 @@ class LoginBox extends Component {
         axios
             .post('https://top9backend.herokuapp.com/api/login', this.state.creds)
             .then(res => {
-            console.log(res.data);{
-                localStorage.setItem('token', res.data.jwt);
-                // this.props.history.push('/Protected')
+            console.log(res);{
+                localStorage.setItem('token', res.data.token);
+
+                let token = getJwt('token');
+
+                let decoded = JWT(token);
+                console.log(decoded);
+
+
+               
+                localStorage.setItem('user_id', decoded.id);
+
+                localStorage.setItem('username', decoded.username);
+
+                // this.props.history.push('/Protected');
             
                 }
 
@@ -74,13 +88,12 @@ class LoginBox extends Component {
             console.log(err);
             
             });
-        
+
+            
     }
     
     render() { 
-        console.log(this.state.creds);
-        console.log(this.state.password);
-        console.log(this.props.history)
+
 
         return (
             
@@ -93,8 +106,8 @@ class LoginBox extends Component {
 
                     
 
-                    <Form style={this.state.center}>
-                        <FormGroup style={this.state.center}>
+                    <Form style={this.state.center}onSubmit={this.props.getUser}  >
+                        <FormGroup style={this.state.center} >
 
                             <Label htmlFor="username">Username</Label>
                             
@@ -105,6 +118,8 @@ class LoginBox extends Component {
                             <Label htmlFor="password">Password</Label>
                             <Input style={this.state.style} type="password" name="password" className="login-input"  placeholder="Password" value={this.state.creds.password} onChange={this.change}/>
                         </FormGroup>
+
+                        <Button outline color="primary" type="button" onClick={this.submitLogin } >Submit</Button>
                     </Form>
 
 
@@ -116,7 +131,7 @@ class LoginBox extends Component {
                     <div className="input">
 
                     </div>
-                    <Button outline color="primary" type="button"  onClick={this.submitLogin}>Submit</Button>{' '}
+
                     
                 </div>
             </div>
@@ -126,3 +141,10 @@ class LoginBox extends Component {
 
 
 export default LoginBox;
+
+
+
+
+
+{/* <Button outline color="primary" type="button" onClick={this.submitLogin } onSubmit={this.props.getUser}  
+>Submit</Button> */}
