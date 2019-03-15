@@ -58,7 +58,7 @@ class RegisterBox extends Component {
         axios.post('https://top9backend.herokuapp.com/api/register', this.state.creds)
           .then(res => {
             console.log(res);
-            let userId = localStorage.setItem('user_id', res.data.id);
+            localStorage.setItem('user_id', res.data.id);
           })
           .catch(err => {
             console.log(err);
@@ -69,8 +69,7 @@ class RegisterBox extends Component {
     }
     
     render() { 
-        console.log(localStorage.getItem('token'));
-        console.log(this.state.creds);
+
 
         return(
             
@@ -95,7 +94,7 @@ class RegisterBox extends Component {
                     <div className="input">
 
                     </div>
-                    <Button outline color="primary" type="button"  onClick={this.submitLogin}>Submit</Button>{' '}
+                    <Button outline color="primary" type="button"  onClick={this.submitRegister}>Submit</Button>{' '}
                 </div>
             </div>
         )

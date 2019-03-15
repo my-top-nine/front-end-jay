@@ -15,8 +15,12 @@ import {
   NavLink,
   NavItem
  } from 'reactstrap';
+ import MyTop9 from './components/User/MyTop9';
+ import { getJwt } from './components/helpers/jwt';
 
 import './App.css';
+
+
 
 class App extends Component {
   constructor(props) {
@@ -31,10 +35,26 @@ class App extends Component {
     },
       default: {
 
-      }
+      },
+      repos: null,
+      userId: localStorage.getItem('user_id')
     }
     
   };
+
+  
+
+  getUser = (e) => {
+    e.preventDefault();
+    const user = e.target.username.value;
+    axios
+    .get(`https://my-top-nine.herokuapp.com/api/${user}` )
+    .then(res => {
+        console.log(res);
+
+      })
+
+  }
 
   showLoginBox = () => {
     this.setState({
@@ -57,6 +77,10 @@ class App extends Component {
 
   componentDidMount(){
     console.log('cdm running');
+    const userId = localStorage.getItem('user_id');
+    const jwt = getJwt();
+    console.log(jwt);
+
 
 
    axios
@@ -90,9 +114,12 @@ class App extends Component {
                 <NavItem style={{listStyleType: 'none', marginRight: '15px'}}>
                   <Link to="/">Login</Link>
                 </NavItem>
+                <NavItem style={{listStyleType: 'none', marginRight: '15px'}}>
+                  <Link to="/top9">Top Nine</Link>
+                </NavItem>
               
             </Navbar>
-            <Route exact path='/' render= {props => <LoginPage {...props}
+            <Route exact path='/' render= {props => <LoginPage getUser = {this.getUser}
             showRegisterBox={this.showRegisterBox} 
             showLoginBox={this.showLoginBox} 
             isLoginOpen={this.state.isLoginOpen} 
@@ -101,11 +128,17 @@ class App extends Component {
 
 
             {/* <Route path="/auth" component={LoggedIn}/> */}
-            <Route path="/top9" render={props => <ItemList {...props}
-            ItemList={this.ItemList}/>} />
-            <LoggedIn />
-              {/* <Route path="/Protected" component={Protected} history={this.props.history}/>
-            </LoggedIn> */}
+            <Route path="/top9" render={props => <LoggedIn {...props}
+            ItemList={this.ItemList} userId={this.state.userId}/>} />
+
+{/* <Route path="/" render={() => {
+            return(
+              <MyTop9 
+                itemList={this.state.itemList}
+              />)
+          }} /> */}
+
+
             
 
           </div>
@@ -125,3 +158,6 @@ showLoginBox={this.showLoginBox}
 isLoginOpen={this.state.isLoginOpen} 
 isRegisterOpen={this.state.isRegisterOpen}
 />} /> */}
+
+{/* <Route path="/Protected" component={Protected} history={this.props.history}/>
+            </LoggedIn> */}
