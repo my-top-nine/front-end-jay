@@ -1,9 +1,27 @@
-// import React, { Component } from 'react';
+import React, { Component } from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import AuthService from './AuthService';
 
-// const Protected = () => {
-//     return (
-//         <h1>protected</h1>
-//     )
-// }
+const Protected = ({component: Component, ...rest}) => {
+    return (
+        <Route {...rest} render={
+            props => {
+                if(AuthService.isAuthenticated()) {
+                    return <Component {...props} />
+                } else {
+                    return <Redirect to= {
+                        {
+                            pathname: '/',
+                            state: {
+                                from: props.location
+                            }
+                        }
+                    } />
+                }
+                
+            }
+        } />
+    )
+}
 
-// export default Protected;
+export default Protected;

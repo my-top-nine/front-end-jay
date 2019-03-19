@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getJwt } from '../helpers/jwt';
+import { getJwt } from './jwt';
 import 'bootstrap/dist/css/bootstrap.css';
 import { 
     Button,
@@ -12,6 +12,7 @@ import {
  
 
 import axios from 'axios';
+import auth from './AuthService';
 
 class LoginBox extends Component {
     constructor(props){
@@ -80,7 +81,11 @@ class LoginBox extends Component {
                 localStorage.setItem('username', decoded.username);
 
                 // this.props.history.push('/Protected');
-            
+                auth.login(() => {
+                                
+                    this.props.history.push('/top9');
+                })
+
                 }
 
             })
@@ -106,7 +111,7 @@ class LoginBox extends Component {
 
                     
 
-                    <Form style={this.state.center}onSubmit={this.props.getUser}  >
+                    <Form style={this.state.center} onSubmit={this.props.getUser}  >
                         <FormGroup style={this.state.center} >
 
                             <Label htmlFor="username">Username</Label>
@@ -119,7 +124,7 @@ class LoginBox extends Component {
                             <Input style={this.state.style} type="password" name="password" className="login-input"  placeholder="Password" value={this.state.creds.password} onChange={this.change}/>
                         </FormGroup>
 
-                        <Button outline color="primary" type="button" onClick={this.submitLogin } >Submit</Button>
+                        <Button outline color="primary" type="button" onClick={this.submitLogin} >Submit</Button>
                     </Form>
 
 
@@ -141,10 +146,3 @@ class LoginBox extends Component {
 
 
 export default LoginBox;
-
-
-
-
-
-{/* <Button outline color="primary" type="button" onClick={this.submitLogin } onSubmit={this.props.getUser}  
->Submit</Button> */}

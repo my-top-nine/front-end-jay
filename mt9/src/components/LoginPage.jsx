@@ -39,8 +39,8 @@ class LoginPage extends Component {
               </div>
               <div className="box-container">
               {console.log(this.props)}
-                {this.props.isLoginOpen && <LoginBox getUser = {this.props.getUser}/>}
-                {this.props.isRegisterOpen && <RegisterBox  />}
+                {this.props.isLoginOpen && <LoginBox {...this.props} getUser = {this.props.getUser}/>}
+                {this.props.isRegisterOpen && <RegisterBox {...this.props} />}
               </div>
             </div>
             
