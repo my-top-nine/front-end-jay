@@ -26,7 +26,7 @@ export const AddItems = (props) => {
                 <Form >  
                         <FormGroup style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column'}} >
 
-                            <Label htmlFor="username"> <h2> Add  Item </h2></Label>
+                            <Label htmlFor="username"> <h2> Add  Item! </h2></Label>
                             
                             <Input style={{ width: '20%'}} type="text" name="item" className="login-input"  placeholder="Item"  onChange={props.addItem}/>
                             
