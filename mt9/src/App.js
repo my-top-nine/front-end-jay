@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import InputForm from './components/InputForm';
-import LoginBox from './components/Login';
-import RegisterBox from './components/Register';
-import LoginPage from './components/LoginPage';
-import MyTopNine from './components/MyTopNine';
+import InputForm from './components/User/InputForm';
+import LoginBox from './components/Login/Login';
+import RegisterBox from './components/Login/Register';
+import LoginPage from './components/Login/LoginPage';
+import MyTopNine from './components/User/MyTopNine';
 import Protected from './components/Protected';
 
 import axios from 'axios';
@@ -15,10 +15,10 @@ import {
   NavItem
  } from 'reactstrap';
 
-import { getJwt } from './components/jwt';
+import { getJwt } from './components/Login/jwt';
 
 import './App.css';
-import AuthService from './components/AuthService';
+import AuthService from './components/Login/AuthService';
 
 
 
@@ -68,11 +68,15 @@ class App extends Component {
               <Link to="/">Login</Link>
             </NavItem>
             <NavItem style={{listStyleType: 'none', marginRight: '15px'}}>
-              <Link to="/top9">Top Nine</Link>
+              <Link to="/" onClick= {() => {AuthService.logout(localStorage.clear())}}>Logout</Link>
+            </NavItem>
+            <NavItem style={{listStyleType: 'none', marginRight: '15px'}}>
+              <Link to="/top9" >Top Nine</Link>
             </NavItem>
 
               
-        </Navbar>        
+        </Navbar>
+       
         <Route exact path='/' render= {props => <LoginPage {...props} getUser = {this.getUser}
             showRegisterBox={this.showRegisterBox} 
             showLoginBox={this.showLoginBox} 

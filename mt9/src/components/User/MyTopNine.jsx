@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import * as jwtDecode from 'jwt-decode';
-import {getJwt} from './jwt';
+import {getJwt} from '../Login/jwt';
 import { 
     Button,
     FormGroup,
@@ -9,6 +9,7 @@ import {
     Label,
     Input
  } from 'reactstrap';
+import { AddItems } from './AddItems';
 
 class MyTopNine extends Component {
     constructor(props){
@@ -126,39 +127,14 @@ class MyTopNine extends Component {
         // console.log(allItems);
         console.log(this.itemData());
         return ( 
-            <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
-
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    {allItems.map(i => {
-                        return <p key={i.id}> {i.item} </p>     
-                    })}
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
-                    {topNineItems.map(i => {
-                        return <p key={i.id}> {i.item} </p>
-                    })}
-                </div>
-                <Form >  
-                        <FormGroup style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column'}} >
-
-                            <Label htmlFor="username"> <h2> Add  Item </h2></Label>
-                            
-                            <Input style={{ width: '20%'}} type="text" name="item" className="login-input"  placeholder="Item"  onChange={this.addItem}/>
-                            
-                        </FormGroup>
-                        <FormGroup style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column'}} >
-
-
-
-                            <Input style={{ width: '20%'}} type="text" name="position" className="login-input"  placeholder="Position"  onChange={this.addPosition}/>
-
-                        </FormGroup>
-
-
-                        <Button outline color="primary" type="button" onClick={this.submitItem } >Submit</Button>
-                    </Form>
-            </div>
+            <AddItems 
+            allItems={allItems}
+            topNineItems={topNineItems}
+            addItem={this.addItem}
+            addPosition={this.addPosition}
+            submitItem={this.submitItem}
+            itemList={this.state.itemList}
+            />
          );
     }
 }

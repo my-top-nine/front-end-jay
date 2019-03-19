@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {getJwt} from './jwt';
 
 
 class AuthService{
@@ -13,6 +14,7 @@ class AuthService{
     }
 
     logout(cb) {
+
         this.authenticated = false;
         cb();
     }
