@@ -5,9 +5,10 @@ import RegisterBox from './components/Login/Register';
 import LoginPage from './components/Login/LoginPage';
 import MyTopNine from './components/User/MyTopNine';
 import Protected from './components/Protected';
+import Item from './components/User/Item';
 
 import axios from 'axios';
-import { Link, Route, BrowserRouter as Router  } from 'react-router-dom';
+import { Link, Switch, Route, BrowserRouter as Router  } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import { 
   Navbar,
@@ -56,6 +57,10 @@ class App extends Component {
     })
   }
 
+  userRoutes = {
+      path: `/top9/${localStorage.getItem('item_name')}`,
+  }
+
 
   render() {
     console.log(this.state);
@@ -76,14 +81,16 @@ class App extends Component {
 
               
         </Navbar>
-       
-        <Route exact path='/' render= {props => <LoginPage {...props} getUser = {this.getUser}
-            showRegisterBox={this.showRegisterBox} 
-            showLoginBox={this.showLoginBox} 
-            isLoginOpen={this.state.isLoginOpen} 
-            isRegisterOpen={this.state.isRegisterOpen}
-          />} />
-        <Route exact path ='/top9' render={props => <MyTopNine {...props} />}/>
+        <Switch>
+          <Route exact path='/' render= {props => <LoginPage {...props} getUser = {this.getUser}
+              showRegisterBox={this.showRegisterBox} 
+              showLoginBox={this.showLoginBox} 
+              isLoginOpen={this.state.isLoginOpen} 
+              isRegisterOpen={this.state.isRegisterOpen}
+            />} />
+          <Route exact path ='/top9' render={props => <MyTopNine {...props} />}/>
+          <Route path={this.userRoutes.path} render={props => <Item {...props} userRoutes={this.userRoutes.path}/>}/>
+        </Switch>
       </div>
     );
   }
