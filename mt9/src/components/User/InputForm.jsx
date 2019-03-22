@@ -1,38 +1,34 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
 class InputForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ''
+      name: ""
     };
   }
 
   addItem = event => {
     event.preventDefault();
-   
 
     axios
-    .post('https://my-top-nine.herokuapp.com/api/categories', this.state)
-    .then( res => {
+      .post("https://my-top-nine.herokuapp.com/api/categories", this.state)
+      .then(res => {
         console.log(res.data);
         this.setState({
-            ...this.props,
-            smurfs: res.data
+          ...this.props,
+          smurfs: res.data
         });
-        
-    })
-    .catch( err => {
-        console.log(err)
-    })
-    
-
+      })
+      .catch(err => {
+        console.log(err);
+      });
 
     this.setState({
-      name: ''
+      name: ""
     });
-  }
+  };
 
   handleInputChange = e => {
     this.setState({ [e.target.item]: e.target.value });

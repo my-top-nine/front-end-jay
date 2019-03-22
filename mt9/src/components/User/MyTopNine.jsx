@@ -5,7 +5,6 @@ import { getJwt } from "../Login/jwt";
 import { Button, FormGroup, Form, Label, Input } from "reactstrap";
 import AddItems from "./AddItems";
 
-
 class MyTopNine extends Component {
   constructor(props) {
     super(props);
@@ -75,15 +74,21 @@ class MyTopNine extends Component {
   };
 
   submitItem = e => {
-    
     let filteredItem = this.itemData()[0];
 
     console.log(filteredItem.id);
 
-    let filteredCat = filteredItem.category === 'Movies' ? 1 : filteredItem.category === 'Video Games' ? 2 : filteredItem.category === 'Music' ? 3 : null;
+    let filteredCat =
+      filteredItem.category === "Movies"
+        ? 1
+        : filteredItem.category === "Video Games"
+        ? 2
+        : filteredItem.category === "Music"
+        ? 3
+        : null;
 
     console.log(filteredCat);
-    
+
     axios
       .create({
         headers: {
@@ -127,7 +132,7 @@ class MyTopNine extends Component {
     });
   };
 
-  deleteItem = (i) => {
+  deleteItem = i => {
     axios
       .create({
         headers: {
@@ -136,14 +141,14 @@ class MyTopNine extends Component {
         }
       })
       .delete(
-        `https://top9backend.herokuapp.com/api/users/${localStorage.getItem("user_id")}/topnine/${i}`
+        `https://top9backend.herokuapp.com/api/users/${localStorage.getItem(
+          "user_id"
+        )}/topnine/${i}`
       )
       .then(res => {
         console.log(res);
-        
-      })
-
-    }
+      });
+  };
 
   render() {
     let allItems = this.state.itemList;
