@@ -115,7 +115,11 @@ class MyTopNine extends Component {
   };
 
   addItem = e => {
-    this.setState({ ...this.state, item: e.target.value }, e => {
+    this.setState({ ...this.state, item: e.target.value.toLowerCase()
+      .split(' ')
+      .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+      .join(' ') }, e => {
+
       console.log(this.state.item);
     });
   };
