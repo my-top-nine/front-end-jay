@@ -1,0 +1,31 @@
+.main-div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 100%;
+  align-items: center;
+}
+
+.main-div-cards {
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 75%;
+  height: 65%;
+
+  /* background-color: lightcoral; */
+}
+
+#item-card {
+  height: auto !important;
+  width: 25% !important;
+  margin: 15px;
+}
+
+.add-item-card {
+  margin: 15px;
+  height: 15%;
+  width: 15%;
+}
