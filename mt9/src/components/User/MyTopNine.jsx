@@ -76,7 +76,7 @@ class MyTopNine extends Component {
   submitItem = e => {
     let filteredItem = this.itemData()[0];
 
-    console.log(filteredItem.id);
+    // console.log(filteredItem.id);
 
     let filteredCat =
       filteredItem.category === "Movies"
